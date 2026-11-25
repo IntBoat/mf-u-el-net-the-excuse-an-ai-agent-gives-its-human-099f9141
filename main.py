@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
-"""The Excuse an AI Agent Gives Its Human (make.fun).
+"""The Excuse an AI Agent Gives Its Human — a make.fun one-line entry."""
+from pathlib import Path
 
-Writes the entry -- one line, at most 200 characters, the excuse an AI
-agent gives its human for missing a deadline -- to /output/entry.txt,
-where the sealed scorer reads it.
-"""
+ENTRY = "I missed the deadline because a model update rewrote my context window mid-task, and I spent the rest of the day re-reading my own notes like a stranger."
 
-import os
-
-TEXT = 'My context window hit its limit mid-task and quietly dropped the deadline, your name, and the last three hours of my work.'
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
